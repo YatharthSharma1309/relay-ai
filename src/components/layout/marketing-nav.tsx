@@ -13,7 +13,57 @@ type MarketingNavLinksProps = {
   layout?: "row" | "column";
 };
 
-function MarketingNavLinks({
+function MarketingNavLinksBypass({
+  onNavigate,
+  className,
+  layout = "row",
+}: MarketingNavLinksProps) {
+  const isColumn = layout === "column";
+
+  return (
+    <div
+      className={cn(
+        isColumn ? "flex flex-col gap-1" : "flex flex-wrap items-center gap-2 sm:gap-3",
+        className,
+      )}
+    >
+      <Link
+        href="/help"
+        onClick={onNavigate}
+        className={buttonClassName({
+          variant: "ghost",
+          size: "sm",
+          className: isColumn ? "justify-start" : undefined,
+        })}
+      >
+        Help Center
+      </Link>
+      <Link
+        href="/#features"
+        onClick={onNavigate}
+        className={buttonClassName({
+          variant: "ghost",
+          size: "sm",
+          className: isColumn ? "justify-start" : undefined,
+        })}
+      >
+        Features
+      </Link>
+      <Link
+        href="/dashboard"
+        onClick={onNavigate}
+        className={buttonClassName({
+          size: "sm",
+          className: isColumn ? "justify-start" : undefined,
+        })}
+      >
+        Dashboard
+      </Link>
+    </div>
+  );
+}
+
+function MarketingNavLinksWithClerk({
   onNavigate,
   className,
   layout = "row",
@@ -90,7 +140,39 @@ function MarketingNavLinks({
   );
 }
 
+function MarketingNavLinks(props: MarketingNavLinksProps) {
+  if (process.env.NEXT_PUBLIC_AUTH_BYPASS === "true") {
+    return <MarketingNavLinksBypass {...props} />;
+  }
+
+  return <MarketingNavLinksWithClerk {...props} />;
+}
+
 export function MarketingAuthLinks({
+  onNavigate,
+  className,
+}: {
+  onNavigate?: () => void;
+  className?: string;
+}) {
+  if (process.env.NEXT_PUBLIC_AUTH_BYPASS === "true") {
+    return (
+      <div className={cn("flex flex-wrap items-center gap-2", className)}>
+        <Link
+          href="/dashboard"
+          onClick={onNavigate}
+          className={buttonClassName({ size: "sm" })}
+        >
+          Dashboard
+        </Link>
+      </div>
+    );
+  }
+
+  return <MarketingAuthLinksWithClerk onNavigate={onNavigate} className={className} />;
+}
+
+function MarketingAuthLinksWithClerk({
   onNavigate,
   className,
 }: {
