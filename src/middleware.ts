@@ -1,5 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 const isPublicRoute = createRouteMatcher([
   "/",
@@ -29,15 +29,15 @@ function isAuthBypass() {
   );
 }
 
-export default clerkMiddleware(async (auth, request) => {
-  if (isAuthBypass()) {
-    const path = request.nextUrl.pathname;
-    if (path.startsWith("/sign-in") || path.startsWith("/sign-up")) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
-    return;
+function authBypassMiddleware(request: NextRequest) {
+  const path = request.nextUrl.pathname;
+  if (path.startsWith("/sign-in") || path.startsWith("/sign-up")) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
+  return NextResponse.next();
+}
 
+const clerkProtectedMiddleware = clerkMiddleware(async (auth, request) => {
   if (request.nextUrl.pathname.startsWith("/api/demo/seed")) {
     return;
   }
@@ -46,6 +46,8 @@ export default clerkMiddleware(async (auth, request) => {
     await auth.protect();
   }
 });
+
+export default isAuthBypass() ? authBypassMiddleware : clerkProtectedMiddleware;
 
 export const config = {
   matcher: [
