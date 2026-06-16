@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    env:
+      # Satisfies Prisma schema validation during build; unit tests do not connect to Postgres.
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/ci?sslmode=disable
+      AUTH_BYPASS: "true"
+      NEXT_PUBLIC_AUTH_BYPASS: "true"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+      - name: Validate Prisma schema
+        run: npx prisma validate
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run build

@@ -1,0 +1,19 @@
+# SupportAI Demo FAQ
+
+## Refund Policy
+Customers can request a full refund within 14 days of purchase. After 14 days, refunds are reviewed case by case.
+
+## Billing
+We accept Visa, Mastercard, and PayPal. Invoices are sent on the 1st of each month.
+
+## Password Reset
+Go to Settings > Security > Reset Password. A reset link is emailed within 5 minutes.
+
+## API Rate Limits
+Free plan: 100 requests/day. Pro plan: 10,000 requests/day. Enterprise: custom limits.
+
+## Support Hours
+Live support is available Monday to Friday, 9 AM to 6 PM EST. AI chat is available 24/7.
+
+## Escalation
+If the AI cannot resolve your issue, click "Escalate to ticket" and an agent will respond within 24 hours.
