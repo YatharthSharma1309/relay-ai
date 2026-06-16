@@ -12,11 +12,7 @@ function hasAuthBypassEnv() {
 }
 
 export function isE2eAuthBypass() {
-  return (
-    process.env.CI === "true" &&
-    process.env.E2E_AUTH_BYPASS === "true" &&
-    hasAuthBypassEnv()
-  );
+  return process.env.E2E_AUTH_BYPASS === "true" && hasAuthBypassEnv();
 }
 
 export function isAuthBypassEnabled() {

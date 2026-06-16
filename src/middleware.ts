@@ -14,7 +14,6 @@ const isPublicRoute = createRouteMatcher([
 
 function isAuthBypass() {
   if (
-    process.env.CI === "true" &&
     process.env.E2E_AUTH_BYPASS === "true" &&
     (process.env.AUTH_BYPASS === "true" ||
       process.env.NEXT_PUBLIC_AUTH_BYPASS === "true")
