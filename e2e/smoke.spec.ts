@@ -3,7 +3,11 @@ import { expect, test } from "@playwright/test";
 test.describe("public surfaces", () => {
   test("landing page loads", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("link", { name: /sign in/i }).first()).toBeVisible();
+    if (process.env.NEXT_PUBLIC_AUTH_BYPASS === "true") {
+      await expect(page.getByRole("link", { name: /dashboard/i }).first()).toBeVisible();
+    } else {
+      await expect(page.getByRole("link", { name: /sign in/i }).first()).toBeVisible();
+    }
     await expect(page.getByText("SupportAI").first()).toBeVisible();
   });
 

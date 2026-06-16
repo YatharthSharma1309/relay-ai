@@ -4,6 +4,7 @@ const isCI = !!process.env.CI;
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3000";
 
 const serverEnv = {
+  CI: isCI ? "true" : process.env.CI ?? "",
   AUTH_BYPASS: process.env.AUTH_BYPASS ?? "true",
   NEXT_PUBLIC_AUTH_BYPASS: process.env.NEXT_PUBLIC_AUTH_BYPASS ?? "true",
   E2E_AUTH_BYPASS: isCI ? "true" : process.env.E2E_AUTH_BYPASS ?? "",
