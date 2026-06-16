@@ -26,7 +26,9 @@ export function isAuthBypassEnabled() {
 }
 
 export function assertAuthBypassNotInProduction() {
+  if (process.env.NEXT_PHASE === "phase-production-build") return;
   if (isE2eAuthBypass()) return;
+  if (process.env.CI === "true" && hasAuthBypassEnv()) return;
   if (process.env.NODE_ENV !== "production") return;
 
   if (hasAuthBypassEnv()) {

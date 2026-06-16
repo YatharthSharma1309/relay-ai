@@ -12,8 +12,6 @@ jobs:
     env:
       # Satisfies Prisma schema validation during build; unit tests do not connect to Postgres.
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/ci?sslmode=disable
-      AUTH_BYPASS: "true"
-      NEXT_PUBLIC_AUTH_BYPASS: "true"
 
     steps:
       - uses: actions/checkout@v4
@@ -28,5 +26,9 @@ jobs:
         run: npx prisma validate
       - run: npm run typecheck
       - run: npm run lint
-      - run: npm run test
+      - name: Unit tests
+        run: npm run test
+        env:
+          AUTH_BYPASS: "true"
+          NEXT_PUBLIC_AUTH_BYPASS: "true"
       - run: npm run build
