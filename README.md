@@ -176,7 +176,9 @@ npm run test        # unit tests (Vitest)
 npm run test:e2e    # Playwright smoke + widget API tests
 ```
 
-CI runs typecheck, lint, Prisma schema validation, unit tests, and build on every push/PR (`.github/workflows/ci.yml`). E2E runs migrations, seeds demo data, builds the production app, and executes Playwright against `next start` (`.github/workflows/e2e.yml`). E2E sets `E2E_AUTH_BYPASS=true` so auth bypass works in the production build — do not use that flag outside CI.
+CI runs typecheck, lint, Prisma schema validation, unit tests, and build on every push/PR (`.github/workflows/ci.yml`). E2E runs on pull requests and manual `workflow_dispatch` only (`.github/workflows/e2e.yml`) — migrations, demo seed, production build, and Playwright against `next start`. E2E sets `E2E_AUTH_BYPASS=true` so auth bypass works in the production build — do not use that flag outside CI.
+
+Production deployment: see [DEPLOY.md](./DEPLOY.md).
 
 For dashboard flows locally, run a dev server with `AUTH_BYPASS=true` and `NEXT_PUBLIC_AUTH_BYPASS=true`, then:
 
