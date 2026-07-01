@@ -7,9 +7,13 @@ import { clerkAppearance } from "@/lib/clerk-appearance";
 import type { MemberRole } from "@/generated/prisma/client";
 
 function isDemoToolsEnabled() {
+  const publicDemo =
+    process.env.NEXT_PUBLIC_PUBLIC_DEMO_MODE === "true" &&
+    process.env.NEXT_PUBLIC_AUTH_BYPASS === "true";
+
   return (
     process.env.NEXT_PUBLIC_AUTH_BYPASS === "true" &&
-    process.env.NODE_ENV !== "production"
+    (process.env.NODE_ENV !== "production" || publicDemo)
   );
 }
 
@@ -30,7 +34,7 @@ export function DashboardTopBar({
     <>
       {demoMode ? (
         <div className="border-b border-indigo-100 bg-indigo-50 px-4 py-2 text-center text-xs font-medium text-indigo-800 lg:pl-64">
-          Demo mode — authentication bypassed for local development
+          Demo mode — public recruiter demo (auth bypassed). Replace with Clerk for production.
         </div>
       ) : null}
 

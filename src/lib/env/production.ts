@@ -1,3 +1,5 @@
+import { isPublicDemoMode } from "@/lib/env/public-demo";
+
 export function assertProductionEnv() {
   if (process.env.NODE_ENV !== "production") return;
   if (process.env.NEXT_PHASE === "phase-production-build") return;
@@ -6,11 +8,34 @@ export function assertProductionEnv() {
   const missing: string[] = [];
 
   if (!process.env.DATABASE_URL?.trim()) missing.push("DATABASE_URL");
+  if (!process.env.APP_URL?.trim()) missing.push("APP_URL");
+
+  if (isPublicDemoMode()) {
+    if (!process.env.OPENROUTER_API_KEY?.trim()) missing.push("OPENROUTER_API_KEY");
+    if (!process.env.DEMO_SEED_SECRET?.trim()) missing.push("DEMO_SEED_SECRET");
+    if (
+      process.env.AUTH_BYPASS !== "true" ||
+      process.env.NEXT_PUBLIC_AUTH_BYPASS !== "true"
+    ) {
+      throw new Error(
+        "PUBLIC_DEMO_MODE requires AUTH_BYPASS=true and NEXT_PUBLIC_AUTH_BYPASS=true.",
+      );
+    }
+    if (missing.length > 0) {
+      throw new Error(
+        `Missing required public-demo environment variables: ${missing.join(", ")}`,
+      );
+    }
+    console.warn(
+      "[SupportAI] PUBLIC_DEMO_MODE is enabled — Clerk auth is bypassed. Use Clerk keys for real production.",
+    );
+    return;
+  }
+
   if (!process.env.CLERK_SECRET_KEY?.trim()) missing.push("CLERK_SECRET_KEY");
   if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY?.trim()) {
     missing.push("NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY");
   }
-  if (!process.env.APP_URL?.trim()) missing.push("APP_URL");
 
   if (missing.length > 0) {
     throw new Error(

@@ -1,5 +1,6 @@
 import { randomBytes } from "crypto";
 import { db } from "@/lib/db";
+import { isPublicDemoMode } from "@/lib/env/public-demo";
 
 const DEMO_ORG_SLUG = process.env.DEMO_ORGANIZATION_SLUG ?? "demo-company";
 const DEMO_USER_EMAIL = process.env.DEMO_USER_EMAIL ?? "admin@demo.com";
@@ -17,6 +18,7 @@ export function isE2eAuthBypass() {
 
 export function isAuthBypassEnabled() {
   if (isE2eAuthBypass()) return true;
+  if (isPublicDemoMode() && hasAuthBypassEnv()) return true;
 
   return hasAuthBypassEnv() && process.env.NODE_ENV !== "production";
 }
@@ -24,6 +26,7 @@ export function isAuthBypassEnabled() {
 export function assertAuthBypassNotInProduction() {
   if (process.env.NEXT_PHASE === "phase-production-build") return;
   if (isE2eAuthBypass()) return;
+  if (isPublicDemoMode() && hasAuthBypassEnv()) return;
   if (process.env.CI === "true" && hasAuthBypassEnv()) return;
   if (process.env.NODE_ENV !== "production") return;
 
