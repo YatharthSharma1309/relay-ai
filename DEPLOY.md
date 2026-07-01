@@ -32,6 +32,8 @@ Browser → Vercel (Next.js) → Neon PostgreSQL
 
 ## 3. Vercel environment variables
 
+Vercel project: **support-ai** — https://vercel.com/yatharthsharma1309s-projects/support-ai
+
 | Variable | Required | Notes |
 |----------|----------|-------|
 | `DATABASE_URL` | Yes | Neon pooled URL |
