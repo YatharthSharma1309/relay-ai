@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Pencil } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { CandidateStatusBadge } from "@/components/recruitment/candidate-status-badge";
+import { JobActivityLog } from "@/components/recruitment/job-activity-log";
 import { ManualCandidateForm } from "@/components/recruitment/manual-candidate-form";
 import { PendingHireBanner } from "@/components/recruitment/pending-hire-banner";
 import { ResumeUploader } from "@/components/recruitment/resume-uploader";
@@ -13,6 +14,7 @@ import { Card, CardTitle } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { RelativeTime } from "@/components/ui/relative-time";
 import { requireOrgMembershipOrRedirect } from "@/lib/auth";
+import { listJobAuditEvents } from "@/lib/recruitment/services/audit";
 import { getJobDetail } from "@/lib/recruitment/services/jobs";
 import { Users } from "lucide-react";
 
@@ -28,6 +30,8 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
   if (!job) {
     notFound();
   }
+
+  const activityEvents = await listJobAuditEvents(organization.id, id);
 
   const activeCandidates = job.candidates.filter(
     (candidate) => candidate.status !== "archived",
@@ -202,6 +206,8 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
             </Card>
           )}
         </section>
+
+        <JobActivityLog events={activityEvents} />
       </main>
     </>
   );

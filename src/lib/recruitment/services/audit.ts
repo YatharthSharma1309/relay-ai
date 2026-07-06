@@ -10,12 +10,18 @@ export type AuditEventDTO = {
 };
 
 const actionLabels: Record<string, string> = {
+  "job.create": "Job created",
+  "job.update": "Job updated",
+  "job.delete": "Job deleted",
+  "candidate.create_manual": "Candidate added manually",
   "candidate.upload": "Resume uploaded",
   "candidate.analyze": "AI analysis completed",
   "candidate.update": "Candidate updated",
   "candidate.update_resume": "Resume text updated",
   "candidate.delete": "Candidate deleted",
   "job.archive_candidates_on_hire": "Other candidates archived after hire",
+  "hire.undo": "Hire decision undone",
+  "hire.finalize": "Archived candidates permanently removed",
   "job.undo_hire": "Hire decision undone",
   "job.finalize_hire": "Archived candidates permanently removed",
 };
