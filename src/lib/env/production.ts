@@ -51,8 +51,8 @@ export function assertProductionEnv() {
   }
 
   if (!process.env.WIDGET_VISITOR_SECRET?.trim()) {
-    console.warn(
-      "[SupportAI] WIDGET_VISITOR_SECRET is not set — widget visitor tokens use a fallback secret.",
+    throw new Error(
+      "WIDGET_VISITOR_SECRET is required in production for secure widget visitor sessions.",
     );
   }
 

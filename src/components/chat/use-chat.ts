@@ -346,7 +346,7 @@ export function useChat(
                   message.id === assistantId
                     ? {
                         ...message,
-                        id: String(data.messageId),
+                        id: data.messageId ? String(data.messageId) : assistantId,
                         content: String(data.reply ?? message.content),
                         persisted: true,
                       }
@@ -549,6 +549,7 @@ export function useChat(
     canEscalate,
     ragStep,
     error,
+    sessionReady,
     sendMessage,
     startNewChat,
     loadConversation,

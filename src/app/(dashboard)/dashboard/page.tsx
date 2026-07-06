@@ -8,27 +8,23 @@ import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { buttonClassName } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { requireOrgMembershipOrRedirect } from "@/lib/auth";
+import { getWorkspaceHealth } from "@/lib/demo";
 import { db } from "@/lib/db";
 import { isAiConfigured, isEmbeddingEnabled } from "@/lib/ai";
 import { RelativeTime } from "@/components/ui/relative-time";
 
 async function getDashboardData(organizationId: string) {
-  const [documents, readyDocuments, conversations, openTickets, recentTickets] =
-    await Promise.all([
-      db.document.count({ where: { organizationId } }),
-      db.document.count({ where: { organizationId, status: "READY" } }),
-      db.conversation.count({ where: { organizationId } }),
-      db.ticket.count({
-        where: { organizationId, status: { in: ["OPEN", "IN_PROGRESS"] } },
-      }),
-      db.ticket.findMany({
-        where: { organizationId },
-        orderBy: { createdAt: "desc" },
-        take: 5,
-      }),
-    ]);
+  const [health, documents, recentTickets] = await Promise.all([
+    getWorkspaceHealth(organizationId),
+    db.document.count({ where: { organizationId } }),
+    db.ticket.findMany({
+      where: { organizationId },
+      orderBy: { createdAt: "desc" },
+      take: 5,
+    }),
+  ]);
 
-  return { documents, readyDocuments, conversations, openTickets, recentTickets };
+  return { documents, ...health, recentTickets };
 }
 
 export default async function DashboardPage() {

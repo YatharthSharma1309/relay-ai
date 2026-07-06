@@ -159,11 +159,6 @@ export async function requireOrgMembership(
   return context;
 }
 
-export async function getCurrentOrganization() {
-  const context = await getOrgMembershipContext();
-  return context?.organization ?? null;
-}
-
 export async function requireOrgMembershipOrRedirect(
   minimumRole?: MemberRole,
 ): Promise<OrgMembershipContext> {

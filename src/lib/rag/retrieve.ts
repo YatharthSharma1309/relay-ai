@@ -134,26 +134,6 @@ export function retrieveRelevantChunksWithMode(
   };
 }
 
-export function retrieveRelevantChunks(
-  query: string,
-  chunks: Array<{
-    id: string;
-    documentId: string;
-    content: string;
-    embedding: unknown;
-    documentTitle?: string;
-  }>,
-  queryEmbedding: number[] | null,
-  topK = 5,
-): ChunkWithScore[] {
-  return retrieveRelevantChunksWithMode(
-    query,
-    chunks,
-    queryEmbedding,
-    topK,
-  ).chunks;
-}
-
 export function buildRagPrompt(
   question: string,
   chunks: ChunkWithScore[],

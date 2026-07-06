@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   BarChart3,
   BookOpen,
+  Briefcase,
   Bot,
   Headphones,
   HelpCircle,
@@ -18,6 +19,7 @@ import type { MemberRole } from "@/generated/prisma/client";
 
 const baseNavItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, adminOnly: false },
+  { href: "/recruitment", label: "Recruitment", icon: Briefcase, adminOnly: false },
   { href: "/knowledge", label: "Knowledge Base", icon: BookOpen, adminOnly: false },
   { href: "/chat", label: "AI Chatbot", icon: Bot, adminOnly: false },
   { href: "/inbox", label: "Agent Inbox", icon: Inbox, adminOnly: false },
@@ -63,8 +65,8 @@ export function SidebarContent({
             <Sparkles className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-slate-900">SupportAI</p>
-            <p className="text-xs text-slate-500">RAG Support Platform</p>
+            <p className="text-sm font-semibold text-slate-900">OpsAI</p>
+            <p className="text-xs text-slate-500">AI Operations Platform</p>
           </div>
         </Link>
       </div>

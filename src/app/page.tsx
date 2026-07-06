@@ -4,6 +4,7 @@ import {
   BarChart3,
   BookOpen,
   Bot,
+  Briefcase,
   Headphones,
   Zap,
 } from "lucide-react";
@@ -36,6 +37,12 @@ const features = [
     description:
       "Track deflection rate, ticket trends, resolution time, and knowledge gaps.",
   },
+  {
+    icon: Briefcase,
+    title: "AI recruitment",
+    description:
+      "Screen resumes against job criteria, score candidates, surface skill gaps, and manage hiring pipelines.",
+  },
 ];
 
 export default function LandingPage() {
@@ -48,17 +55,18 @@ export default function LandingPage() {
           <div className="max-w-3xl">
             <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
               <Zap className="h-3.5 w-3.5" />
-              RAG-powered · Multi-tenant
+              RAG-powered · Support + Recruitment
             </p>
             <h1 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl md:leading-tight">
-              Support that{" "}
+              One platform for{" "}
               <span className="bg-gradient-to-r from-indigo-600 to-cyan-500 bg-clip-text text-transparent">
-                retrieves, cites, and escalates
+                support and hiring AI
               </span>
             </h1>
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              Upload docs, answer customers with cited AI, escalate to tickets,
-              and measure deflection—all in one workspace built for SaaS teams.
+              Answer customers with cited RAG chat, escalate to tickets, screen
+              resumes against job criteria, and run hiring pipelines — all in one
+              multi-tenant workspace.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/sign-up" className={buttonClassName({ size: "lg" })}>

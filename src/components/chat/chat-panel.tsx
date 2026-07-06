@@ -342,6 +342,7 @@ export function ChatPanel({
     isEscalating,
     ragStep,
     error,
+    sessionReady,
     sendMessage,
     startNewChat,
     loadConversation,
@@ -360,6 +361,8 @@ export function ChatPanel({
     }
 
     if (initialQuestion?.trim()) {
+      if (mode === "widget" && !sessionReady) return;
+
       initializedRef.current = true;
       if (hasDocuments) {
         void sendMessage(initialQuestion.trim());
@@ -381,6 +384,7 @@ export function ChatPanel({
     loadConversation,
     mode,
     sendMessage,
+    sessionReady,
   ]);
 
   useEffect(() => {

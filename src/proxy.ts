@@ -1,6 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse, type NextRequest, type NextFetchEvent } from "next/server";
 import { isPublicDemoMode } from "@/lib/env/public-demo";
+
 const isPublicRoute = createRouteMatcher([
   "/",
   "/sign-in(.*)",
@@ -29,7 +30,7 @@ function isAuthBypass() {
   return process.env.NODE_ENV !== "production" && hasAuthBypassEnv();
 }
 
-function authBypassMiddleware(request: NextRequest) {
+function authBypassProxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
   if (path.startsWith("/sign-in") || path.startsWith("/sign-up")) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
@@ -37,7 +38,7 @@ function authBypassMiddleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-const clerkProtectedMiddleware = clerkMiddleware(async (auth, request) => {
+const clerkProtectedProxy = clerkMiddleware(async (auth, request) => {
   if (request.nextUrl.pathname.startsWith("/api/demo/seed")) {
     return;
   }
@@ -47,12 +48,13 @@ const clerkProtectedMiddleware = clerkMiddleware(async (auth, request) => {
   }
 });
 
-export default function middleware(request: NextRequest, event: NextFetchEvent) {
+export async function proxy(request: NextRequest, event: NextFetchEvent) {
   if (isAuthBypass()) {
-    return authBypassMiddleware(request);
+    return authBypassProxy(request);
   }
-  return clerkProtectedMiddleware(request, event);
+  return clerkProtectedProxy(request, event);
 }
+
 export const config = {
   matcher: [
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",

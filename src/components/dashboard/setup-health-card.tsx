@@ -16,7 +16,8 @@ import { Card } from "@/components/ui/card";
 
 const showDemoSeed =
   process.env.NEXT_PUBLIC_AUTH_BYPASS === "true" &&
-  process.env.NODE_ENV !== "production";
+  (process.env.NODE_ENV !== "production" ||
+    process.env.NEXT_PUBLIC_PUBLIC_DEMO_MODE === "true");
 
 type SetupHealthCardProps = {
   readyDocuments: number;

@@ -52,7 +52,7 @@ export function getAiClient() {
       defaultHeaders: {
         "HTTP-Referer":
           process.env.APP_URL?.trim() || "http://localhost:3000",
-        "X-Title": "SupportAI Customer Support Platform",
+        "X-Title": "OpsAI Platform",
       },
     });
   }
@@ -63,9 +63,3 @@ export function getAiClient() {
 export function isAiConfigured() {
   return Boolean(getApiKey());
 }
-
-/** @deprecated Use getAiClient */
-export const getOpenAIClient = getAiClient;
-
-/** @deprecated Use isAiConfigured */
-export const isOpenAIConfigured = isAiConfigured;

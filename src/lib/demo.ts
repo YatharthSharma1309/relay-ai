@@ -164,15 +164,64 @@ async function seedDemoConversationsAndTickets(organizationId: string) {
   return { created: true };
 }
 
+async function seedDemoRecruitment(organizationId: string) {
+  const existing = await db.job.findFirst({
+    where: { organizationId, title: "Full-Stack Engineer (Demo)" },
+  });
+
+  if (existing) {
+    return { created: false, jobId: existing.id };
+  }
+
+  const job = await db.job.create({
+    data: {
+      organizationId,
+      title: "Full-Stack Engineer (Demo)",
+      description:
+        "Build customer-facing SaaS features with Next.js, TypeScript, and PostgreSQL. Own API design, RAG integrations, and polished recruiter/support dashboards.",
+      requiredSkills: JSON.stringify([
+        "TypeScript",
+        "React",
+        "Next.js",
+        "PostgreSQL",
+        "REST APIs",
+      ]),
+      preferredSkills: JSON.stringify(["Prisma", "OpenRouter", "RAG"]),
+      experienceLevel: "Mid-level",
+      minYearsExperience: 2,
+      educationRequirements: JSON.stringify(["Bachelor's in CS or equivalent"]),
+      certifications: JSON.stringify([]),
+      roleType: "Full-time",
+    },
+  });
+
+  await db.candidate.create({
+    data: {
+      jobId: job.id,
+      displayName: "Alex Rivera",
+      rawText:
+        "Alex Rivera — Full-Stack Engineer with 3 years building React/Next.js SaaS products. Shipped RAG chat features, Prisma/PostgreSQL APIs, and multi-tenant dashboards. Skills: TypeScript, React, Next.js, Node.js, PostgreSQL, Prisma, REST, LLM integrations.",
+      parseStatus: "manual",
+      status: "new",
+      filePath: null,
+    },
+  });
+
+  return { created: true, jobId: job.id };
+}
+
 export async function seedDemoWorkspace() {
   const knowledge = await seedDemoKnowledgeBase();
   const { organization } = await getDemoOrganizationContext();
   const workspace = await seedDemoConversationsAndTickets(organization.id);
+  const recruitment = await seedDemoRecruitment(organization.id);
 
   return {
     document: knowledge.document,
     knowledgeCreated: knowledge.created,
     workspaceCreated: workspace.created,
+    recruitmentCreated: recruitment.created,
+    recruitmentJobId: recruitment.jobId,
   };
 }
 

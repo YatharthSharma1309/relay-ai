@@ -55,10 +55,12 @@ model Organization {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  members       OrganizationMember[]
-  documents     Document[]
-  conversations Conversation[]
-  tickets       Ticket[]
+  members                 OrganizationMember[]
+  documents               Document[]
+  conversations           Conversation[]
+  tickets                 Ticket[]
+  jobs                    Job[]
+  recruitmentAuditEvents  RecruitmentAuditEvent[]
 }
 
 model User {
@@ -184,4 +186,86 @@ model TicketComment {
   author User?  @relation(fields: [authorId], references: [id], onDelete: SetNull)
 
   @@index([ticketId])
+}
+
+model Job {
+  id                        String      @id @default(cuid())
+  organizationId            String
+  title                     String
+  description               String
+  requiredSkills            String
+  preferredSkills           String      @default("[]")
+  experienceLevel           String      @default("")
+  minYearsExperience        Int?
+  educationRequirements     String      @default("[]")
+  certifications            String      @default("[]")
+  roleType                  String      @default("")
+  pendingHireCandidateId    String?
+  pendingHireExpiresAt      DateTime?
+  pendingHirePreviousStatus String?
+  createdAt                 DateTime    @default(now())
+  updatedAt                 DateTime    @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  candidates   Candidate[]
+
+  @@index([organizationId])
+  @@index([createdAt])
+}
+
+model Candidate {
+  id                  String    @id @default(cuid())
+  jobId               String
+  displayName         String
+  fileName            String?
+  mimeType            String?
+  filePath            String? /// Always null; resumes processed in-memory only
+  rawText             String
+  parseStatus         String    @default("ok")
+  status              String    @default("new")
+  statusBeforeArchive String?
+  notes               String?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  job      Job                @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  analysis CandidateAnalysis?
+
+  @@index([jobId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model CandidateAnalysis {
+  id                 String   @id @default(cuid())
+  candidateId        String   @unique
+  summary            String
+  extractedSkills    String
+  matchScore         Int
+  scoreBreakdown     String   @default("{}")
+  matchRationale     String
+  missingSkills      String
+  interviewQuestions String
+  modelId            String?
+  analyzedAt         DateTime @default(now())
+
+  candidate Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+}
+
+model RecruitmentAuditEvent {
+  id             String   @id @default(cuid())
+  organizationId String
+  action         String
+  entityType     String
+  entityId       String?
+  actorId        String?
+  metadata       String?
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([action])
+  @@index([entityType])
+  @@index([createdAt])
 }

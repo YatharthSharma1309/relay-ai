@@ -7,7 +7,6 @@ export {
 
 export {
   authErrorResponse,
-  getCurrentOrganization,
   getOrgMembershipContext,
   requireOrgMembership,
   requireOrgMembershipOrRedirect,

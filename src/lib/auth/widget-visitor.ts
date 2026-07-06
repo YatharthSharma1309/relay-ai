@@ -1,15 +1,19 @@
 import { createHmac, timingSafeEqual } from "crypto";
 import { WidgetAuthError } from "@/lib/auth/widget-errors";
+import { isPublicDemoMode } from "@/lib/env/public-demo";
 
 const VISITOR_ID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 function getVisitorSigningSecret() {
-  return (
-    process.env.WIDGET_VISITOR_SECRET ||
-    process.env.CLERK_SECRET_KEY ||
-    "dev-widget-visitor-secret"
-  );
+  const secret = process.env.WIDGET_VISITOR_SECRET?.trim();
+  if (secret) return secret;
+
+  if (process.env.NODE_ENV === "production" && !isPublicDemoMode()) {
+    throw new Error("WIDGET_VISITOR_SECRET is required in production.");
+  }
+
+  return process.env.CLERK_SECRET_KEY || "dev-widget-visitor-secret";
 }
 
 export function isValidVisitorId(visitorId: string) {
