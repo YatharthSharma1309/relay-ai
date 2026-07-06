@@ -52,7 +52,7 @@ export function getAiClient() {
       defaultHeaders: {
         "HTTP-Referer":
           process.env.APP_URL?.trim() || "http://localhost:3000",
-        "X-Title": "OpsAI Platform",
+        "X-Title": "Relay Platform",
       },
     });
   }

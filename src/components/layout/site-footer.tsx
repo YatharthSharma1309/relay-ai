@@ -31,7 +31,7 @@ export function SiteFooter({ variant = "full", className }: SiteFooterProps) {
           <p className="text-sm text-slate-500">
             Powered by{" "}
             <Link href="/" className="font-medium text-indigo-600 hover:text-indigo-500">
-              OpsAI
+              Relay AI
             </Link>
           </p>
         </div>
@@ -90,7 +90,7 @@ export function SiteFooter({ variant = "full", className }: SiteFooterProps) {
       </div>
 
       <div className="border-t border-slate-100 py-6 text-center text-sm text-slate-500">
-        © {year} OpsAI. All rights reserved.
+        © {year} Relay AI. All rights reserved.
       </div>
     </footer>
   );

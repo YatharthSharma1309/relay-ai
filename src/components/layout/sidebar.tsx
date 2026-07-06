@@ -65,8 +65,8 @@ export function SidebarContent({
             <Sparkles className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-slate-900">OpsAI</p>
-            <p className="text-xs text-slate-500">AI Operations Platform</p>
+            <p className="text-sm font-semibold text-slate-900">Relay AI</p>
+            <p className="text-xs text-slate-500">Support & Recruitment Platform</p>
           </div>
         </Link>
       </div>

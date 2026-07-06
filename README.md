@@ -1,4 +1,4 @@
-# OpsAI — AI Operations Platform
+# Relay AI — Support & Recruitment Platform
 
 **Portfolio flagship** — unified multi-tenant SaaS combining **customer support** and **recruitment** in one workspace:
 

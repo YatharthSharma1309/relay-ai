@@ -1,4 +1,4 @@
-# OpsAI — Production Deployment (Vercel + Neon + Clerk)
+# Relay AI — Production Deployment (Vercel + Neon + Clerk)
 
 ## Architecture
 
@@ -12,7 +12,7 @@ Browser → Vercel (Next.js) → Neon PostgreSQL
 
 ## Prerequisites
 
-- [ ] GitHub repo: `YatharthSharma1309/ops-ai`
+- [ ] GitHub repo: `YatharthSharma1309/relay-ai`
 - [ ] [Neon](https://neon.tech) PostgreSQL project
 - [ ] [Clerk](https://clerk.com) application (production instance)
 - [ ] [OpenRouter](https://openrouter.ai) API key
@@ -81,7 +81,7 @@ Then upload 2–3 FAQ documents via Knowledge Base UI. Demo seed also creates a 
 ## 7. Portfolio link
 
 ```
-NEXT_PUBLIC_DEMO_OPSAI_URL=https://YOUR-APP.vercel.app
+NEXT_PUBLIC_DEMO_RELAY_AI_URL=https://YOUR-APP.vercel.app
 ```
 
 ## Smoke test

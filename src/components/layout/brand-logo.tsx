@@ -35,10 +35,10 @@ export function BrandLogo({
             size === "sm" ? "text-sm" : "text-lg",
           )}
         >
-          OpsAI
+          Relay AI
         </p>
         {showTagline ? (
-          <p className="text-xs text-slate-500">AI operations platform</p>
+          <p className="text-xs text-slate-500">Support & Recruitment Platform</p>
         ) : null}
       </div>
     </div>

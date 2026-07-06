@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OpsAI | AI Operations Platform",
+  title: "Relay AI | Support & Recruitment Platform",
   description:
-    "Unified AI operations platform — RAG customer support, recruitment pipelines, tickets, and analytics for SaaS teams.",
+    "Unified Support & Recruitment Platform — RAG customer support, recruitment pipelines, tickets, and analytics for SaaS teams.",
 };
 
 export default function RootLayout({
