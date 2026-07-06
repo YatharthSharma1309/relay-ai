@@ -29,19 +29,34 @@ export type UseChatOptions = {
 
 function getVisitorStorageKey(widgetKey?: string) {
   return widgetKey
-    ? `supportai_visitor_${widgetKey}`
-    : "supportai_visitor_admin";
+    ? `relayai_visitor_${widgetKey}`
+    : "relayai_visitor_admin";
 }
 
 function getVisitorTokenStorageKey(widgetKey?: string) {
   return widgetKey
-    ? `supportai_visitor_token_${widgetKey}`
-    : "supportai_visitor_token_admin";
+    ? `relayai_visitor_token_${widgetKey}`
+    : "relayai_visitor_token_admin";
+}
+
+function readStoredValue(primaryKey: string, legacyKey: string) {
+  const value = localStorage.getItem(primaryKey);
+  if (value) return value;
+  const legacy = localStorage.getItem(legacyKey);
+  if (legacy) {
+    localStorage.setItem(primaryKey, legacy);
+    localStorage.removeItem(legacyKey);
+    return legacy;
+  }
+  return null;
 }
 
 function getVisitorId(widgetKey?: string) {
   const storageKey = getVisitorStorageKey(widgetKey);
-  const existing = localStorage.getItem(storageKey);
+  const legacyKey = widgetKey
+    ? `supportai_visitor_${widgetKey}`
+    : "supportai_visitor_admin";
+  const existing = readStoredValue(storageKey, legacyKey);
   if (existing) return existing;
   const id = crypto.randomUUID();
   localStorage.setItem(storageKey, id);

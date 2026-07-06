@@ -12,8 +12,8 @@ import {
   Inbox,
   LayoutDashboard,
   Settings,
-  Sparkles,
 } from "lucide-react";
+import { BrandLogo } from "@/components/layout/brand-logo";
 import { cn } from "@/lib/utils";
 import type { MemberRole } from "@/generated/prisma/client";
 
@@ -56,19 +56,11 @@ export function SidebarContent({
   return (
     <div className={cn("flex h-full flex-col bg-white", className)}>
       <div className="border-b border-slate-200 px-6 py-5">
-        <Link
+        <BrandLogo
           href="/dashboard"
-          className="flex items-center gap-3"
-          onClick={onNavigate}
-        >
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-cyan-500 text-white shadow-lg shadow-indigo-200">
-            <Sparkles className="h-5 w-5" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-slate-900">Relay AI</p>
-            <p className="text-xs text-slate-500">Support & Recruitment Platform</p>
-          </div>
-        </Link>
+          showTagline
+          onNavigate={onNavigate}
+        />
       </div>
 
       <nav className="flex-1 space-y-1 px-3 py-4">

@@ -32,8 +32,13 @@ Browser → Vercel (Next.js) → Neon PostgreSQL
 
 ## 3. Vercel environment variables
 
-Vercel project: **support-ai** (legacy name) — https://vercel.com/yatharthsharma1309s-projects/support-ai  
-Production URL: https://support-ai-nine-mu.vercel.app
+| Item | Value |
+|------|--------|
+| Vercel project | **relay-ai** — https://vercel.com/yatharthsharma1309s-projects/relay-ai |
+| Production URL | https://relay-ai-app.vercel.app |
+| Legacy URL | https://support-ai-nine-mu.vercel.app (still aliases to the same deploy) |
+
+Set `APP_URL` to your primary production URL (e.g. `https://relay-ai-app.vercel.app`).
 
 | Variable | Required | Notes |
 |----------|----------|-------|
@@ -86,7 +91,7 @@ NEXT_PUBLIC_DEMO_RELAY_AI_URL=https://YOUR-APP.vercel.app
 
 ## Portfolio showcase (clients & interviewers)
 
-**Live demo:** https://support-ai-nine-mu.vercel.app
+**Live demo:** https://relay-ai-app.vercel.app
 
 Recommended walkthrough (no sign-in required when `PUBLIC_DEMO_MODE` is enabled):
 
@@ -103,7 +108,7 @@ Recommended walkthrough (no sign-in required when `PUBLIC_DEMO_MODE` is enabled)
 ```bash
 node scripts/push-vercel-env.mjs   # sync demo env from local .env
 npx vercel --prod --yes
-curl -X POST https://support-ai-nine-mu.vercel.app/api/demo/seed \
+curl -X POST https://relay-ai-app.vercel.app/api/demo/seed \
   -H "Authorization: Bearer YOUR_DEMO_SEED_SECRET"
 ```
 

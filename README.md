@@ -1,6 +1,6 @@
 # Relay AI — Support & Recruitment Platform
 
-**Portfolio flagship** — unified multi-tenant SaaS combining **customer support** and **recruitment** in one workspace:
+**Portfolio flagship** — unified multi-tenant SaaS combining **customer support** and **recruitment** in one workspace.
 
 | Module | Capabilities |
 |--------|----------------|
@@ -9,7 +9,11 @@
 
 Built with **Next.js 16**, **React 19**, **TypeScript**, **Prisma + PostgreSQL**, **Clerk** (multi-tenant orgs), and **OpenRouter**.
 
-> RecruitAI was merged into this codebase (2026-07-06). One repo, one deploy, org-scoped data for both modules.
+## Live demo
+
+**https://relay-ai-app.vercel.app** (also https://support-ai-nine-mu.vercel.app)
+
+Click **Open live demo** on the landing page — no sign-in required. Try RAG chat with citations, ticket workflows, recruitment AI scoring, analytics, and the embeddable widget.
 
 ## Quick start
 
@@ -44,8 +48,8 @@ Open [http://localhost:3000](http://localhost:3000) → `/dashboard` (support) o
 ## Tech stack
 
 - Next.js 16 App Router, Tailwind CSS 4
-- Prisma + PostgreSQL (Neon-ready)
-- Clerk organizations + role-based access
+- Prisma + PostgreSQL (Neon)
+- Clerk organizations + role-based access (or public demo mode)
 - OpenRouter for chat, analysis, and job-assist
 - Vitest + Playwright
 
@@ -66,16 +70,19 @@ Support APIs remain under `/api/documents`, `/api/chat`, `/api/tickets`, etc.
 
 See [DEPLOY.md](./DEPLOY.md) for Vercel + Neon + Clerk production setup.
 
-**Live portfolio demo:** https://support-ai-nine-mu.vercel.app  
-Click **Open live demo** on the landing page — no sign-in required. Highlights: RAG chat with citations, ticket escalation, recruitment AI scoring, analytics, and embeddable widget.
+| Item | Value |
+|------|--------|
+| GitHub | [YatharthSharma1309/relay-ai](https://github.com/YatharthSharma1309/relay-ai) |
+| Vercel project | `relay-ai` |
+| Production URL | https://relay-ai-app.vercel.app |
 
 ## Scripts
 
 ```bash
-npm run dev          # Development
+npm run dev          # Development (Webpack on Windows)
 npm run build        # Production build
-npm run db:migrate   # Apply migrations (includes recruitment models)
-npm run db:seed      # Demo support KB + tickets + sample recruitment job
+npm run db:migrate   # Apply migrations
+npm run db:seed      # Demo KB + tickets + sample recruitment job
 npm run test         # Unit tests
 npm run test:e2e     # Playwright
 ```

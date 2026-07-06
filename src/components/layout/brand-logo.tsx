@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
+import { RelayLogoMark } from "@/components/layout/relay-logo-mark";
 import { cn } from "@/lib/utils";
 
 type BrandLogoProps = {
@@ -7,6 +7,7 @@ type BrandLogoProps = {
   showTagline?: boolean;
   size?: "sm" | "md";
   className?: string;
+  onNavigate?: () => void;
 };
 
 export function BrandLogo({
@@ -14,20 +15,16 @@ export function BrandLogo({
   showTagline = false,
   size = "md",
   className,
+  onNavigate,
 }: BrandLogoProps) {
-  const iconSize = size === "sm" ? "h-9 w-9" : "h-10 w-10";
-  const iconInner = size === "sm" ? "h-4 w-4" : "h-5 w-5";
+  const markSize = size === "sm" ? 36 : 40;
 
   const content = (
     <div className={cn("flex items-center gap-3", className)}>
-      <div
-        className={cn(
-          "flex items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-cyan-500 text-white shadow-sm shadow-indigo-200",
-          iconSize,
-        )}
-      >
-        <Sparkles className={iconInner} />
-      </div>
+      <RelayLogoMark
+        size={markSize}
+        className="shadow-sm shadow-indigo-200/80"
+      />
       <div>
         <p
           className={cn(
@@ -46,7 +43,11 @@ export function BrandLogo({
 
   if (href) {
     return (
-      <Link href={href} className="transition-opacity hover:opacity-90">
+      <Link
+        href={href}
+        onClick={onNavigate}
+        className="transition-opacity hover:opacity-90"
+      >
         {content}
       </Link>
     );

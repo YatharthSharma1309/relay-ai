@@ -62,7 +62,7 @@ export default function LandingPage() {
             <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
               <Zap className="h-3.5 w-3.5" />
               {demoMode
-                ? "Live portfolio demo · Support + Recruitment"
+                ? "Relay AI · Support + Recruitment"
                 : "RAG-powered · Support + Recruitment"}
             </p>
             <h1 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl md:leading-tight">

@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "Relay AI | Support & Recruitment Platform",
   description:
     "Unified Support & Recruitment Platform — RAG customer support, recruitment pipelines, tickets, and analytics for SaaS teams.",
+  applicationName: "Relay AI",
 };
 
 export default function RootLayout({
