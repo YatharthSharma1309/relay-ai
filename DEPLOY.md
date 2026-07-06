@@ -84,6 +84,40 @@ Then upload 2–3 FAQ documents via Knowledge Base UI. Demo seed also creates a 
 NEXT_PUBLIC_DEMO_RELAY_AI_URL=https://YOUR-APP.vercel.app
 ```
 
+## Portfolio showcase (clients & interviewers)
+
+**Live demo:** https://support-ai-nine-mu.vercel.app
+
+Recommended walkthrough (no sign-in required when `PUBLIC_DEMO_MODE` is enabled):
+
+1. **Landing** → click **Open live demo**
+2. **Dashboard** — setup health, stats, recent tickets
+3. **AI Chatbot** (`/chat`) — ask *"What is the refund policy?"* and show citations
+4. **Recruitment** (`/recruitment`) — open demo job → candidate → **Run analysis**
+5. **Analytics** (`/analytics`) — deflection rate and knowledge gaps
+6. **Help center** (`/help/demo-company`) — public KB + embedded widget
+7. **Widget** (`/widget`) — embed preview for customer sites
+
+### Portfolio env (Vercel production)
+
+```bash
+node scripts/push-vercel-env.mjs   # sync demo env from local .env
+npx vercel --prod --yes
+curl -X POST https://support-ai-nine-mu.vercel.app/api/demo/seed \
+  -H "Authorization: Bearer YOUR_DEMO_SEED_SECRET"
+```
+
+| Variable | Portfolio demo |
+|----------|----------------|
+| `PUBLIC_DEMO_MODE` | `true` |
+| `NEXT_PUBLIC_PUBLIC_DEMO_MODE` | `true` |
+| `AUTH_BYPASS` | `true` (demo only) |
+| `NEXT_PUBLIC_AUTH_BYPASS` | `true` |
+| `DEMO_WIDGET_KEY` | stable key for embed/tests |
+| `APP_URL` | your Vercel URL |
+
+For a **private production** app, remove demo bypass vars and configure Clerk keys instead.
+
 ## Smoke test
 
 - [ ] `GET /api/health` returns OK

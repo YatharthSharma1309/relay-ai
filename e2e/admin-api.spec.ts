@@ -1,11 +1,6 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("admin API with AUTH_BYPASS", () => {
-  test.skip(
-    () => process.env.PLAYWRIGHT_DASHBOARD !== "1",
-    "Set PLAYWRIGHT_DASHBOARD=1 with AUTH_BYPASS dev server",
-  );
-
   test("rejects invalid JSON on ticket create", async ({ request }) => {
     const response = await request.post("/api/tickets", {
       headers: { "Content-Type": "application/json" },
@@ -34,8 +29,6 @@ test.describe("admin API with AUTH_BYPASS", () => {
   test("rejects unauthenticated widget session without origin", async ({
     request,
   }) => {
-    test.skip(!process.env.DEMO_WIDGET_KEY, "Requires DEMO_WIDGET_KEY");
-
     const response = await request.post("/api/widget/session", {
       headers: { "x-widget-key": process.env.DEMO_WIDGET_KEY! },
       data: {},

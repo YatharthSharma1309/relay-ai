@@ -11,6 +11,10 @@ import {
 import { MarketingHeader } from "@/components/layout/marketing-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { buttonClassName } from "@/components/ui/button";
+import {
+  demoModuleLinks,
+  isMarketingDemoMode,
+} from "@/lib/env/marketing-demo";
 
 const features = [
   {
@@ -46,6 +50,8 @@ const features = [
 ];
 
 export default function LandingPage() {
+  const demoMode = isMarketingDemoMode();
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <MarketingHeader />
@@ -55,7 +61,9 @@ export default function LandingPage() {
           <div className="max-w-3xl">
             <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
               <Zap className="h-3.5 w-3.5" />
-              RAG-powered · Support + Recruitment
+              {demoMode
+                ? "Live portfolio demo · Support + Recruitment"
+                : "RAG-powered · Support + Recruitment"}
             </p>
             <h1 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl md:leading-tight">
               One platform for{" "}
@@ -69,17 +77,33 @@ export default function LandingPage() {
               multi-tenant workspace.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/sign-up" className={buttonClassName({ size: "lg" })}>
-                Get started free
+              <Link
+                href={demoMode ? "/dashboard" : "/sign-up"}
+                className={buttonClassName({ size: "lg" })}
+              >
+                {demoMode ? "Open live demo" : "Get started free"}
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="/help"
+                href={demoMode ? "/recruitment" : "/help"}
                 className={buttonClassName({ variant: "secondary", size: "lg" })}
               >
-                Browse help center
+                {demoMode ? "View recruitment" : "Browse help center"}
               </Link>
             </div>
+            {demoMode ? (
+              <div className="mt-6 flex flex-wrap gap-2">
+                {demoModuleLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="rounded-full border border-indigo-100 bg-white/80 px-3 py-1.5 text-xs font-medium text-indigo-700 transition hover:bg-indigo-50"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            ) : null}
           </div>
 
           <div className="mt-14 grid gap-4 md:grid-cols-3">
@@ -140,14 +164,18 @@ export default function LandingPage() {
         <section className="border-t border-slate-200 bg-white">
           <div className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6">
             <h2 className="text-2xl font-semibold text-slate-900">
-              Ready to transform your support?
+              {demoMode ? "Explore the full platform" : "Ready to transform your support?"}
             </h2>
             <p className="mx-auto mt-2 max-w-xl text-slate-600">
-              Launch a cited AI helpdesk, embed it on your site, and measure
-              deflection in minutes.
+              {demoMode
+                ? "Walk through support AI, ticket workflows, recruitment scoring, and analytics — no sign-in required."
+                : "Launch a cited AI helpdesk, embed it on your site, and measure deflection in minutes."}
             </p>
-            <Link href="/sign-up" className={buttonClassName({ size: "lg", className: "mt-8" })}>
-              Start your workspace
+            <Link
+              href={demoMode ? "/dashboard" : "/sign-up"}
+              className={buttonClassName({ size: "lg", className: "mt-8" })}
+            >
+              {demoMode ? "Open live demo" : "Start your workspace"}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

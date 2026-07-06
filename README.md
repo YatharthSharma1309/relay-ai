@@ -66,7 +66,8 @@ Support APIs remain under `/api/documents`, `/api/chat`, `/api/tickets`, etc.
 
 See [DEPLOY.md](./DEPLOY.md) for Vercel + Neon + Clerk production setup.
 
-Live demo: https://support-ai-nine-mu.vercel.app
+**Live portfolio demo:** https://support-ai-nine-mu.vercel.app  
+Click **Open live demo** on the landing page — no sign-in required. Highlights: RAG chat with citations, ticket escalation, recruitment AI scoring, analytics, and embeddable widget.
 
 ## Scripts
 

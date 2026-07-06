@@ -48,14 +48,11 @@ test.describe("public surfaces", () => {
 });
 
 test.describe("dashboard with AUTH_BYPASS", () => {
-  test.skip(
-    () => process.env.PLAYWRIGHT_DASHBOARD !== "1",
-    "Set PLAYWRIGHT_DASHBOARD=1 with AUTH_BYPASS dev server on :3000",
-  );
-
   test("dashboard is reachable", async ({ page }) => {
     await page.goto("/dashboard");
-    await expect(page.getByRole("heading", { name: /command center/i })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Command Center", exact: true }),
+    ).toBeVisible();
   });
 
   test("help center lists seeded organization", async ({ page }) => {
@@ -65,7 +62,9 @@ test.describe("dashboard with AUTH_BYPASS", () => {
 
   test("knowledge page lists documents section", async ({ page }) => {
     await page.goto("/knowledge");
-    await expect(page.getByText("Documents")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Documents", exact: true }),
+    ).toBeVisible();
   });
 
   test("analytics page loads", async ({ page }) => {

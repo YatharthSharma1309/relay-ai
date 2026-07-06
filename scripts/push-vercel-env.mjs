@@ -17,6 +17,7 @@ for (const line of raw.split("\n")) {
 
 const demoSecret = "a8f3c2e1-4b5d-6e7f-8a9b-0c1d2e3f4a5b";
 const appUrl = "https://support-ai-nine-mu.vercel.app";
+const demoWidgetKey = "wk_test_e2e_demo_widget_key";
 
 const vars = {
   DATABASE_URL: parsed.DATABASE_URL,
@@ -24,11 +25,14 @@ const vars = {
   OPENROUTER_CHAT_MODEL: parsed.OPENROUTER_CHAT_MODEL || "openrouter/free",
   APP_URL: appUrl,
   PUBLIC_DEMO_MODE: "true",
+  NEXT_PUBLIC_PUBLIC_DEMO_MODE: "true",
   AUTH_BYPASS: "true",
   NEXT_PUBLIC_AUTH_BYPASS: "true",
   DEMO_SEED_SECRET: demoSecret,
   DEMO_ORGANIZATION_SLUG: "demo-company",
   DEMO_USER_EMAIL: "admin@demo.com",
+  DEMO_WIDGET_KEY: demoWidgetKey,
+  NEXT_PUBLIC_DEMO_RELAY_AI_URL: appUrl,
 };
 
 for (const [key, value] of Object.entries(vars)) {

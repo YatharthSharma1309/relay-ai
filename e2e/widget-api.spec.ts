@@ -1,6 +1,12 @@
+import { randomUUID } from "node:crypto";
 import { expect, test } from "@playwright/test";
 
-const widgetKey = process.env.DEMO_WIDGET_KEY;
+const defaultWidgetKey = "wk_test_e2e_demo_widget_key";
+
+function getWidgetKey() {
+  return process.env.DEMO_WIDGET_KEY ?? defaultWidgetKey;
+}
+
 const appOrigin = process.env.APP_URL ?? "http://localhost:3000";
 const hasOpenRouterKey = Boolean(
   process.env.OPENROUTER_API_KEY?.trim() &&
@@ -8,12 +14,13 @@ const hasOpenRouterKey = Boolean(
 );
 
 async function createVisitorSession(request: import("@playwright/test").APIRequestContext) {
+  const widgetKey = getWidgetKey();
   const response = await request.post("/api/widget/session", {
     headers: {
       Origin: appOrigin,
-      "x-widget-key": widgetKey!,
+      "x-widget-key": widgetKey,
     },
-    data: { visitorId: `e2e-${Date.now()}` },
+    data: { visitorId: randomUUID() },
   });
 
   expect(response.status()).toBe(200);
@@ -63,11 +70,6 @@ test.describe("widget stream API", () => {
     expect(response.status()).toBe(401);
   });
 
-  test.skip(
-    () => !widgetKey,
-    "Set DEMO_WIDGET_KEY (seeded in CI) to run widget validation tests",
-  );
-
   test("issues a visitor session for valid widget keys", async ({ request }) => {
     const session = await createVisitorSession(request);
     expect(session.visitorId).toBeTruthy();
@@ -75,8 +77,9 @@ test.describe("widget stream API", () => {
   });
 
   test("requires visitor session for chat stream", async ({ request }) => {
+    const widgetKey = getWidgetKey();
     const response = await request.post("/api/widget/chat/stream", {
-      headers: { "x-widget-key": widgetKey!, Origin: appOrigin },
+      headers: { "x-widget-key": widgetKey, Origin: appOrigin },
       data: { message: "hello", visitorId: "550e8400-e29b-41d4-a716-446655440000" },
     });
 
@@ -86,19 +89,20 @@ test.describe("widget stream API", () => {
     });
   });
 
-  test.skip(
-    () => !widgetKey || !hasOpenRouterKey,
-    "Set DEMO_WIDGET_KEY and OPENROUTER_API_KEY to run widget stream start test",
-  );
-
   test("starts SSE for a seeded widget key", async ({ request, baseURL }) => {
+    test.skip(
+      !hasOpenRouterKey,
+      "Set OPENROUTER_API_KEY to run widget stream start test",
+    );
+
+    const widgetKey = getWidgetKey();
     const session = await createVisitorSession(request);
 
     const response = await fetch(`${baseURL}/api/widget/chat/stream`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-widget-key": widgetKey!,
+        "x-widget-key": widgetKey,
         Origin: appOrigin,
       },
       body: JSON.stringify({

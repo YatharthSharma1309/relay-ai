@@ -34,7 +34,8 @@ export function DashboardTopBar({
     <>
       {demoMode ? (
         <div className="border-b border-indigo-100 bg-indigo-50 px-4 py-2 text-center text-xs font-medium text-indigo-800 lg:pl-64">
-          Demo mode — public recruiter demo (auth bypassed). Replace with Clerk for production.
+          Live portfolio demo — explore the full platform without signing in. Built
+          with Next.js 16, RAG, Prisma, and PostgreSQL.
         </div>
       ) : null}
 

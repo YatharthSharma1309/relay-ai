@@ -9,12 +9,22 @@ export async function seedDemoKnowledgeBase() {
   const demoFilePath = path.join(process.cwd(), "demo", "support-faq.txt");
   const content = await readFile(demoFilePath, "utf-8");
 
-  const existing = await db.document.findFirst({
+  const duplicates = await db.document.findMany({
     where: {
       organizationId: organization.id,
-      title: "Support FAQ",
+      fileName: "support-faq.txt",
     },
+    orderBy: { createdAt: "asc" },
   });
+
+  if (duplicates.length > 1) {
+    const [, ...extra] = duplicates;
+    await db.document.deleteMany({
+      where: { id: { in: extra.map((document) => document.id) } },
+    });
+  }
+
+  const existing = duplicates[0] ?? null;
 
   if (existing) {
     return { document: existing, created: false };

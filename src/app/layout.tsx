@@ -28,18 +28,18 @@ export default function RootLayout({
   assertAuthBypassNotInProduction();
 
   return (
-    <AuthProvider>
-      <html
-        lang="en"
-        className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      >
-        <body className="min-h-full bg-background font-sans text-slate-900">
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full bg-background font-sans text-slate-900">
+        <AuthProvider>
           <a href="#main-content" className="skip-link">
             Skip to main content
           </a>
           {children}
-        </body>
-      </html>
-    </AuthProvider>
+        </AuthProvider>
+      </body>
+    </html>
   );
 }

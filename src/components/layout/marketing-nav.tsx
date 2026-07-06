@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import { MobileMenuButton } from "@/components/layout/mobile-nav";
 import { buttonClassName } from "@/components/ui/button";
+import { isMarketingDemoMode } from "@/lib/env/marketing-demo";
 import { cn } from "@/lib/utils";
 
 type MarketingNavLinksProps = {
@@ -141,7 +142,7 @@ function MarketingNavLinksWithClerk({
 }
 
 function MarketingNavLinks(props: MarketingNavLinksProps) {
-  if (process.env.NEXT_PUBLIC_AUTH_BYPASS === "true") {
+  if (isMarketingDemoMode()) {
     return <MarketingNavLinksBypass {...props} />;
   }
 
@@ -155,7 +156,7 @@ export function MarketingAuthLinks({
   onNavigate?: () => void;
   className?: string;
 }) {
-  if (process.env.NEXT_PUBLIC_AUTH_BYPASS === "true") {
+  if (isMarketingDemoMode()) {
     return (
       <div className={cn("flex flex-wrap items-center gap-2", className)}>
         <Link

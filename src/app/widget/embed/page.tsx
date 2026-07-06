@@ -36,8 +36,20 @@ export default async function WidgetEmbedPage({
   const requestHeaders = new Headers();
   const origin = headerList.get("origin");
   const referer = headerList.get("referer");
-  if (origin) requestHeaders.set("origin", origin);
-  if (referer) requestHeaders.set("referer", referer);
+  const host = headerList.get("host");
+
+  if (origin) {
+    requestHeaders.set("origin", origin);
+  } else if (referer) {
+    requestHeaders.set("referer", referer);
+  } else if (host) {
+    const appUrl = process.env.APP_URL ?? `http://${host}`;
+    try {
+      requestHeaders.set("origin", new URL(appUrl).origin);
+    } catch {
+      requestHeaders.set("origin", `http://${host}`);
+    }
+  }
 
   let organization;
   try {

@@ -1,5 +1,9 @@
 import Link from "next/link";
 import { BrandLogo } from "@/components/layout/brand-logo";
+import {
+  demoModuleLinks,
+  isMarketingDemoMode,
+} from "@/lib/env/marketing-demo";
 import { cn } from "@/lib/utils";
 
 type SiteFooterProps = {
@@ -13,13 +17,27 @@ const productLinks = [
   { href: "/help", label: "Help center" },
 ];
 
+const demoProductLinks = [
+  { href: "/dashboard", label: "Live demo" },
+  { href: "/help", label: "Help center" },
+  ...demoModuleLinks.filter((item) => item.href !== "/dashboard"),
+];
+
 const resourceLinks = [
   { href: "/#features", label: "Features" },
   { href: "/sign-up", label: "Start free" },
 ];
 
+const demoResourceLinks = [
+  { href: "/#features", label: "Features" },
+  { href: "/widget", label: "Embed widget" },
+];
+
 export function SiteFooter({ variant = "full", className }: SiteFooterProps) {
   const year = new Date().getFullYear();
+  const demoMode = isMarketingDemoMode();
+  const footerProductLinks = demoMode ? demoProductLinks : productLinks;
+  const footerResourceLinks = demoMode ? demoResourceLinks : resourceLinks;
 
   if (variant === "minimal") {
     return (
@@ -56,7 +74,7 @@ export function SiteFooter({ variant = "full", className }: SiteFooterProps) {
               Product
             </p>
             <ul className="mt-4 space-y-2">
-              {productLinks.map((link) => (
+              {footerProductLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -74,7 +92,7 @@ export function SiteFooter({ variant = "full", className }: SiteFooterProps) {
               Resources
             </p>
             <ul className="mt-4 space-y-2">
-              {resourceLinks.map((link) => (
+              {footerResourceLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
