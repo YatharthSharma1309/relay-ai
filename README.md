@@ -1,6 +1,8 @@
 # SupportAI — AI Customer Support Platform
 
-Multi-tenant SaaS for AI-powered customer support: upload docs, stream grounded answers, escalate to tickets, embed a widget on customer sites, and measure deflection from one dashboard.
+**Portfolio flagship** — multi-tenant SaaS for AI-powered customer support: upload docs, stream grounded answers, escalate to tickets, embed a widget on customer sites, and measure deflection from one dashboard.
+
+> **Note (2026-07-06):** This is the sole live portfolio SaaS demo. The separate RecruitAI project was retired and consolidated at the portfolio level (repo archived, Vercel removed). See [Career-OS consolidation notes](https://github.com/YatharthSharma1309/career-os/blob/master/CONSOLIDATION.md).
 
 ## Features
 
