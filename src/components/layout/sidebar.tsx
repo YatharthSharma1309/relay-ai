@@ -33,6 +33,7 @@ type SidebarContentProps = {
   className?: string;
   organizationSlug?: string;
   role?: MemberRole;
+  showBrand?: boolean;
 };
 
 export function SidebarContent({
@@ -40,6 +41,7 @@ export function SidebarContent({
   className,
   organizationSlug,
   role = "AGENT",
+  showBrand = true,
 }: SidebarContentProps) {
   const pathname = usePathname();
   const helpHref = organizationSlug ? `/help/${organizationSlug}` : "/help";
@@ -55,15 +57,17 @@ export function SidebarContent({
 
   return (
     <div className={cn("flex h-full flex-col bg-white", className)}>
-      <div className="border-b border-slate-200 px-6 py-5">
-        <BrandLogo
-          href="/dashboard"
-          showTagline
-          onNavigate={onNavigate}
-        />
-      </div>
+      {showBrand ? (
+        <div className="border-b border-slate-200 px-6 py-5">
+          <BrandLogo
+            href="/dashboard"
+            showTagline
+            onNavigate={onNavigate}
+          />
+        </div>
+      ) : null}
 
-      <nav className="flex-1 space-y-1 px-3 py-4">
+      <nav className={cn("flex-1 space-y-1 px-3 py-4", !showBrand && "pt-2")}>
         {navItems.map((item) => {
           const isActive =
             item.href === "/dashboard"

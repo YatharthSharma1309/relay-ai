@@ -38,6 +38,7 @@ export function DashboardTopBar({
             <MobileMenuButton
               ref={menuButtonRef}
               open={mobileNavOpen}
+              controlsId="mobile-nav-menu"
               onClick={onMobileNavToggle}
             />
             <BrandLogo href="/dashboard" size="sm" />

@@ -3,10 +3,34 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
+import { BrandLogo } from "@/components/layout/brand-logo";
 import { MobileMenuButton } from "@/components/layout/mobile-nav";
+import { ClientPortal } from "@/components/ui/client-portal";
 import { buttonClassName } from "@/components/ui/button";
 import { isMarketingDemoMode } from "@/lib/env/marketing-demo";
 import { cn } from "@/lib/utils";
+
+function marketingNavLinkClass({
+  variant = "ghost",
+  column = false,
+}: {
+  variant?: "primary" | "ghost";
+  column?: boolean;
+}) {
+  if (!column) {
+    return buttonClassName({
+      variant: variant === "primary" ? "primary" : "ghost",
+      size: "sm",
+    });
+  }
+
+  return cn(
+    "flex w-full items-center rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
+    variant === "primary"
+      ? "mt-2 bg-indigo-600 text-white hover:bg-indigo-500"
+      : "text-slate-700 hover:bg-slate-50",
+  );
+}
 
 type MarketingNavLinksProps = {
   onNavigate?: () => void;
@@ -31,32 +55,21 @@ function MarketingNavLinksBypass({
       <Link
         href="/help"
         onClick={onNavigate}
-        className={buttonClassName({
-          variant: "ghost",
-          size: "sm",
-          className: isColumn ? "justify-start" : undefined,
-        })}
+        className={marketingNavLinkClass({ column: isColumn })}
       >
         Help Center
       </Link>
       <Link
         href="/#features"
         onClick={onNavigate}
-        className={buttonClassName({
-          variant: "ghost",
-          size: "sm",
-          className: isColumn ? "justify-start" : undefined,
-        })}
+        className={marketingNavLinkClass({ column: isColumn })}
       >
         Features
       </Link>
       <Link
         href="/dashboard"
         onClick={onNavigate}
-        className={buttonClassName({
-          size: "sm",
-          className: isColumn ? "justify-start" : undefined,
-        })}
+        className={marketingNavLinkClass({ variant: "primary", column: isColumn })}
       >
         Dashboard
       </Link>
@@ -82,22 +95,14 @@ function MarketingNavLinksWithClerk({
       <Link
         href="/help"
         onClick={onNavigate}
-        className={buttonClassName({
-          variant: "ghost",
-          size: "sm",
-          className: isColumn ? "justify-start" : undefined,
-        })}
+        className={marketingNavLinkClass({ column: isColumn })}
       >
         Help Center
       </Link>
       <Link
         href="/#features"
         onClick={onNavigate}
-        className={buttonClassName({
-          variant: "ghost",
-          size: "sm",
-          className: isColumn ? "justify-start" : undefined,
-        })}
+        className={marketingNavLinkClass({ column: isColumn })}
       >
         Features
       </Link>
@@ -105,10 +110,7 @@ function MarketingNavLinksWithClerk({
         <Link
           href="/dashboard"
           onClick={onNavigate}
-          className={buttonClassName({
-            size: "sm",
-            className: isColumn ? "justify-start" : undefined,
-          })}
+          className={marketingNavLinkClass({ variant: "primary", column: isColumn })}
         >
           Dashboard
         </Link>
@@ -117,21 +119,14 @@ function MarketingNavLinksWithClerk({
           <Link
             href="/sign-in"
             onClick={onNavigate}
-            className={buttonClassName({
-              variant: "ghost",
-              size: "sm",
-              className: isColumn ? "justify-start" : undefined,
-            })}
+            className={marketingNavLinkClass({ column: isColumn })}
           >
             Sign in
           </Link>
           <Link
             href="/sign-up"
             onClick={onNavigate}
-            className={buttonClassName({
-              size: "sm",
-              className: isColumn ? "justify-start" : undefined,
-            })}
+            className={marketingNavLinkClass({ variant: "primary", column: isColumn })}
           >
             Get started
           </Link>
@@ -276,37 +271,47 @@ export function MarketingNav() {
         <MobileMenuButton
           ref={menuButtonRef}
           open={open}
+          controlsId="marketing-nav-menu"
           onClick={() => setOpen((value) => !value)}
         />
       </div>
 
       {open ? (
-        <>
+        <ClientPortal>
           <button
             type="button"
-            className="fixed inset-0 z-40 bg-slate-900/40 md:hidden"
+            className="fixed inset-0 z-[100] bg-slate-900/40 md:hidden"
             aria-label="Close navigation overlay"
             onClick={() => setOpen(false)}
           />
           <aside
             ref={drawerRef}
-            className="fixed inset-y-0 right-0 z-50 w-72 border-l border-slate-200 bg-white p-4 shadow-xl md:hidden"
+            id="marketing-nav-menu"
+            className="mobile-drawer-panel fixed inset-y-0 right-0 z-[101] flex w-[min(18rem,100vw)] flex-col border-l border-slate-200 bg-white shadow-2xl md:hidden"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="marketing-nav-title"
+            aria-label="Navigation menu"
           >
-            <div className="mb-4 flex items-center justify-between">
-              <p id="marketing-nav-title" className="text-sm font-semibold text-slate-900">
-                Menu
-              </p>
-              <MobileMenuButton open={open} onClick={() => setOpen(false)} />
+            <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
+              <BrandLogo
+                href="/"
+                size="sm"
+                onNavigate={() => setOpen(false)}
+              />
+              <MobileMenuButton
+                open={open}
+                controlsId="marketing-nav-menu"
+                onClick={() => setOpen(false)}
+              />
             </div>
-            <MarketingNavLinks
-              layout="column"
-              onNavigate={() => setOpen(false)}
-            />
+            <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3">
+              <MarketingNavLinks
+                layout="column"
+                onNavigate={() => setOpen(false)}
+              />
+            </nav>
           </aside>
-        </>
+        </ClientPortal>
       ) : null}
     </>
   );

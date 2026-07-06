@@ -94,6 +94,34 @@ body {
   animation: shimmer 1.5s infinite;
 }
 
+.mobile-drawer-panel {
+  animation: slide-in-right 0.22s ease-out;
+}
+
+.mobile-drawer-panel-left {
+  animation: slide-in-left 0.22s ease-out;
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
 .glass-panel {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);

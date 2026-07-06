@@ -34,12 +34,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background font-sans text-slate-900">
-        <AuthProvider>
-          <a href="#main-content" className="skip-link">
-            Skip to main content
-          </a>
-          {children}
-        </AuthProvider>
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
