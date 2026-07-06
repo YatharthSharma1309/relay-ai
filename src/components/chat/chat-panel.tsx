@@ -461,7 +461,7 @@ export function ChatPanel({
                 <div className="flex items-center gap-2">
                   <Sparkles className="h-4 w-4 text-indigo-600" />
                   <h2 className="text-lg font-semibold text-slate-900">
-                    {compact ? "SupportAI Widget" : "AI Support Chat"}
+                    {compact ? "OpsAI Widget" : "AI Support Chat"}
                   </h2>
                 </div>
                 <p className="mt-1 text-sm text-slate-500">

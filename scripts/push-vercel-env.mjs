@@ -16,7 +16,7 @@ for (const line of raw.split("\n")) {
 }
 
 const demoSecret = "a8f3c2e1-4b5d-6e7f-8a9b-0c1d2e3f4a5b";
-const appUrl = "https://support-ai-blush.vercel.app";
+const appUrl = "https://support-ai-nine-mu.vercel.app";
 
 const vars = {
   DATABASE_URL: parsed.DATABASE_URL,

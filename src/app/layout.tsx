@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "OpsAI | AI Operations Platform",
   description:
-    "Multi-document knowledge base, AI chatbot, ticket management, and analytics for SaaS teams.",
+    "Unified AI operations platform — RAG customer support, recruitment pipelines, tickets, and analytics for SaaS teams.",
 };
 
 export default function RootLayout({

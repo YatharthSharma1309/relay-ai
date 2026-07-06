@@ -8,7 +8,7 @@ test.describe("public surfaces", () => {
     } else {
       await expect(page.getByRole("link", { name: /sign in/i }).first()).toBeVisible();
     }
-    await expect(page.getByText("SupportAI").first()).toBeVisible();
+    await expect(page.getByText("OpsAI").first()).toBeVisible();
   });
 
   test("sign-in redirects to dashboard when AUTH_BYPASS is enabled", async ({ page }) => {

@@ -87,7 +87,7 @@ export function WidgetSettingsCard({
 
   async function copyEmbed() {
     await navigator.clipboard.writeText(
-      `<iframe src="${embedUrl}" title="SupportAI chat widget" style="border:0;position:fixed;inset:0;width:100%;height:100%;z-index:9999;background:transparent"></iframe>`,
+      `<iframe src="${embedUrl}" title="OpsAI chat widget" style="border:0;position:fixed;inset:0;width:100%;height:100%;z-index:9999;background:transparent"></iframe>`,
     );
     setMessage("Embed snippet copied to clipboard.");
   }

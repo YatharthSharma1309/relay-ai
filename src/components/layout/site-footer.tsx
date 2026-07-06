@@ -31,7 +31,7 @@ export function SiteFooter({ variant = "full", className }: SiteFooterProps) {
           <p className="text-sm text-slate-500">
             Powered by{" "}
             <Link href="/" className="font-medium text-indigo-600 hover:text-indigo-500">
-              SupportAI
+              OpsAI
             </Link>
           </p>
         </div>
@@ -46,8 +46,8 @@ export function SiteFooter({ variant = "full", className }: SiteFooterProps) {
           <div className="md:col-span-2">
             <BrandLogo showTagline />
             <p className="mt-4 max-w-sm text-sm leading-6 text-slate-600">
-              Upload docs, answer customers with cited AI, escalate to tickets,
-              and measure deflection from one workspace.
+              RAG customer support, AI recruitment pipelines, and multi-tenant
+              ops workflows — one workspace for support and hiring teams.
             </p>
           </div>
 
@@ -90,7 +90,7 @@ export function SiteFooter({ variant = "full", className }: SiteFooterProps) {
       </div>
 
       <div className="border-t border-slate-100 py-6 text-center text-sm text-slate-500">
-        © {year} SupportAI. All rights reserved.
+        © {year} OpsAI. All rights reserved.
       </div>
     </footer>
   );

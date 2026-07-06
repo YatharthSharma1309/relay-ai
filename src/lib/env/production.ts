@@ -27,7 +27,7 @@ export function assertProductionEnv() {
       );
     }
     console.warn(
-      "[SupportAI] PUBLIC_DEMO_MODE is enabled — Clerk auth is bypassed. Use Clerk keys for real production.",
+      "[OpsAI] PUBLIC_DEMO_MODE is enabled — Clerk auth is bypassed. Use Clerk keys for real production.",
     );
     return;
   }
@@ -61,7 +61,7 @@ export function assertProductionEnv() {
     !process.env.UPSTASH_REDIS_REST_TOKEN?.trim()
   ) {
     console.warn(
-      "[SupportAI] UPSTASH_REDIS_REST_URL/TOKEN not set — rate limits are per-instance only.",
+      "[OpsAI] UPSTASH_REDIS_REST_URL/TOKEN not set — rate limits are per-instance only.",
     );
   }
 }

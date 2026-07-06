@@ -1,4 +1,4 @@
-# SupportAI — Production Deployment (Vercel + Neon + Clerk)
+# OpsAI — Production Deployment (Vercel + Neon + Clerk)
 
 ## Architecture
 
@@ -12,7 +12,7 @@ Browser → Vercel (Next.js) → Neon PostgreSQL
 
 ## Prerequisites
 
-- [ ] GitHub repo: `YatharthSharma1309/ai-customer-support-platform`
+- [ ] GitHub repo: `YatharthSharma1309/ops-ai`
 - [ ] [Neon](https://neon.tech) PostgreSQL project
 - [ ] [Clerk](https://clerk.com) application (production instance)
 - [ ] [OpenRouter](https://openrouter.ai) API key
@@ -32,7 +32,8 @@ Browser → Vercel (Next.js) → Neon PostgreSQL
 
 ## 3. Vercel environment variables
 
-Vercel project: **support-ai** — https://vercel.com/yatharthsharma1309s-projects/support-ai
+Vercel project: **support-ai** (legacy name) — https://vercel.com/yatharthsharma1309s-projects/support-ai  
+Production URL: https://support-ai-nine-mu.vercel.app
 
 | Variable | Required | Notes |
 |----------|----------|-------|
@@ -70,7 +71,7 @@ curl -X POST https://YOUR-APP.vercel.app/api/demo/seed \
   -H "Authorization: Bearer YOUR_DEMO_SEED_SECRET"
 ```
 
-Then upload 2–3 FAQ documents via Knowledge Base UI.
+Then upload 2–3 FAQ documents via Knowledge Base UI. Demo seed also creates a sample recruitment job at `/recruitment`.
 
 ## 6. Widget demo
 
@@ -80,7 +81,7 @@ Then upload 2–3 FAQ documents via Knowledge Base UI.
 ## 7. Portfolio link
 
 ```
-NEXT_PUBLIC_DEMO_SUPPORTAI_URL=https://YOUR-APP.vercel.app
+NEXT_PUBLIC_DEMO_OPSAI_URL=https://YOUR-APP.vercel.app
 ```
 
 ## Smoke test
@@ -89,6 +90,7 @@ NEXT_PUBLIC_DEMO_SUPPORTAI_URL=https://YOUR-APP.vercel.app
 - [ ] Sign up + create org
 - [ ] Upload document
 - [ ] Chat with citation
+- [ ] `/recruitment` — view demo job + candidate pipeline
 - [ ] Widget stream (optional)
 
 ## Troubleshooting
