@@ -15,9 +15,14 @@ for (const line of raw.split("\n")) {
   parsed[m[1]] = m[2].replace(/^"|"$/g, "");
 }
 
-const demoSecret = "a8f3c2e1-4b5d-6e7f-8a9b-0c1d2e3f4a5b";
-const appUrl = "https://relay-ai-app.vercel.app";
-const demoWidgetKey = "wk_test_e2e_demo_widget_key";
+const demoSecret =
+  parsed.DEMO_SEED_SECRET || process.env.DEMO_SEED_SECRET || "";
+const appUrl =
+  parsed.APP_URL ||
+  process.env.APP_URL ||
+  "https://support-ai-nine-mu.vercel.app";
+const demoWidgetKey =
+  parsed.DEMO_WIDGET_KEY || "wk_test_e2e_demo_widget_key";
 
 const vars = {
   DATABASE_URL: parsed.DATABASE_URL,
@@ -35,6 +40,12 @@ const vars = {
   NEXT_PUBLIC_DEMO_RELAY_AI_URL: appUrl,
 };
 
+if (!demoSecret) {
+  console.error(
+    "Missing DEMO_SEED_SECRET in .env — refuse to push a hardcoded secret.",
+  );
+  process.exit(1);
+}
 for (const [key, value] of Object.entries(vars)) {
   if (!value) {
     console.error(`Missing value for ${key}`);
